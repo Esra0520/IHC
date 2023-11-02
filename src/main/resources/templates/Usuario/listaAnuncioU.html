@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Lista de Anuncios</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="menu2 :: nav"></div>
+
+
+
+            <hr>
+            <div class="alert alert-primary" role="alert">
+                Lista de Anuncios
+            </div>
+            <hr>
+            <hr>
+            <form action="/princ/buscarAnuncioU" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="desc" placeholder="Ingrese descripción">
+                    <button class="btn btn-outline-secondary" type="submit" >Buscar</button>
+                </div>
+            </form>
+
+            <hr>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="anuncio,x : ${anuncios}">
+                        <!--<th th:text="${x.count}" scope="row"></th>-->
+                        <td th:text="${anuncio.descripcion}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+
+    </body>
+</html>
