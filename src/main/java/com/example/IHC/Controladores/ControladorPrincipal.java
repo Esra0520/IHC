@@ -8,7 +8,12 @@ import com.example.IHC.Clases.Anuncios;
 import com.example.IHC.Clases.Usuario;
 import com.example.IHC.Interfaces.IAnunciosService;
 import com.example.IHC.Interfaces.IUsuarioService;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +36,16 @@ public class ControladorPrincipal {
 
     @Autowired
     private IAnunciosService serviceA;
+
+    @WebServlet("/voiceSearch")
+    public class VoiceSearchServlet extends HttpServlet {
+
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+            String voiceInput = request.getParameter("voiceInput");
+            System.out.println("Entrada de voz: " + voiceInput); // Procesamiento de la entrada de voz
+            // Aquí puedes realizar acciones adicionales con la entrada de voz, como buscar en una base de datos, etc.
+        }
+    }
 
     @GetMapping("/login")
     public String Login() {
@@ -239,10 +254,10 @@ public class ControladorPrincipal {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         if (usuario != null) {
             model.addAttribute("usuario", usuario);
-            return carpeta2+"mostrarUsuario"; // Suponiendo que tienes una vista llamada "mostrarUsuario"
+            return carpeta2 + "mostrarUsuario"; // Suponiendo que tienes una vista llamada "mostrarUsuario"
         } else {
             // El usuario no ha iniciado sesión, redirigir a la página de inicio de sesión
-            return carpeta+"login";
+            return carpeta + "login";
         }
     }
 
