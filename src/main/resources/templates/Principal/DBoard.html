@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <!-- Google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Muli:300,700&display=swap" rel="stylesheet">
+
+        <!-- Ionic icons -->
+        <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+        <title>Dashboard</title>
+
+        <style>
+            :root {
+                --primary: #111B54;
+                --light: #ffffff;
+                --grey: #efefef;
+            }
+
+            body {
+                overflow: hidden;
+                font-family: 'Muli', sans-serif;
+                font-weight: 300;
+                color: var(--primary);
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+
+            .bg-primary {
+                background-color: var(--primary) !important;
+            }
+
+            .bg-light {
+                background-color: var(--light) !important;
+            }
+
+            .bg-grey {
+                background-color: var(--grey) !important;
+            }
+
+            .bg-mix {
+                background: linear-gradient(180deg, var(--light) 50%, var(--grey) 0);
+            }
+
+            .btn-primary {
+                background-color: var(--primary);
+                border: 0;
+            }
+
+            .btn-primary:hover {
+                background-color: var(--primary);
+            }
+
+
+
+
+            #content {
+                overflow-y: auto;
+                height: 100vh;
+                padding-bottom: 5rem;
+            }
+
+            .avatar {
+                max-width: 35px;
+            }
+
+            .btn-search {
+                right: 0;
+            }
+
+            .stat {
+                border-right: 1px solid var(--grey);
+            }
+
+
+            @media (max-width: 768px) {
+                #sidebar-container {
+                    display: none;
+                }
+                .stat {
+                    border: 0;
+                }
+            }
+
+            .vacio{
+
+            }
+
+        </style>
+    </head>
+
+
+    <body> 
+        
+        <div th:replace="menu :: nav"></div>
+        <div class="d-flex" id="content-wrapper">
+            <div id="content" class="bg-grey w-100">
+
+                <section class="bg-light py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-8">
+                                <h1 class="font-weight-bold mb-0">DATOS</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-mix py-3">
+                    <div class="container">
+                        <div class="card rounded-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 d-flex stat my-3">
+                                        <div class="mx-auto">
+                                            <h6 class="text-muted">Cantidad de Usuarios</h6>
+                                            <h3 class="font-weight-bold" th:text="${usuarios.size()}"></h3>
+                                            <!--<p>Total de pacientes: <span th:text="${usuarios.size()}"></span></p>-->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 d-flex stat my-3">
+                                        <div class="mx-auto">
+                                            <h6 class="text-muted">Cantidad de Anuncios</h6>
+                                            <h3 class="font-weight-bold" th:text="${anuncios.size()}"></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 my-3">
+                                <div class="card rounded-0">
+                                    <div class="card-header bg-light">
+                                        <h6 class="font-weight-bold mb-0">Cantidad de Usuarios</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="Usuarios" width="100" height="60"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 my-3">
+                                <div class="card rounded-0">
+                                    <div class="card-header bg-light">
+                                        <h6 class="font-weight-bold mb-0">Cantidad de Anuncios</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="misAnuncios" width="100" height="60"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+        <script th:inline="javascript">
+            var usuarios = /*[[${usuarios.size()}]]*/ 0;
+            var ctx = document.getElementById('Usuarios').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Nov 2023', 'Dic 2023', 'Ene 2024', 'Feb 2024'],
+                    datasets: [{
+                            label: 'Cantidad de Usuarios',
+                            data: [usuarios, 0, 0, 0],
+                            backgroundColor: [
+                                '#12C9E5',
+                                '#12C9E5',
+                                '#12C9E5',
+                                '#111B54'
+                            ],
+                            maxBarThickness: 30,
+                            maxBarLength: 2
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
+                }
+            });
+        </script>
+
+        <script th:inline="javascript">
+            var anuncios = /*[[${anuncios.size()}]]*/ 0;
+            var ctx = document.getElementById('misAnuncios').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Nov 2023', 'Dic 2023', 'Ene 2024', 'Feb 2024'],
+                    datasets: [{
+                            label: 'Anuncios',
+                            data: [anuncios, 0, 0, 0],
+                            backgroundColor: [
+                                '#12C9E5',
+                                '#12C9E5',
+                                '#12C9E5',
+                                '#111B54'
+                            ],
+                            maxBarThickness: 30,
+                            maxBarLength: 2
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
+                }
+            });
+        </script>
+</body>
+</html>
